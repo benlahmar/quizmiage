@@ -1,0 +1,18 @@
+<div style="align-content: flex-end;">
+<nav aria-label="..."  >
+    <ul class="pagination">
+      <li class="page-item " >
+        <button class="page-link" (click)="goto(p-1)" [hidden]="p==0 || back==false" >Previous</button>
+      </li>
+     
+      <li *ngFor="let i of item;index as it"  [class]="p==it?'page-item active':'page-item '">
+        <a *ngIf="back==true" class="page-link" (click)="goto(it)" href="#">{{i+1}}</a>
+      </li>
+    
+     <li class="page-item">
+        <button class="page-link" (click)="goto(p+1)" [hidden]="p==9">Next</button>
+      </li>
+      
+    </ul>
+  </nav>
+</div>

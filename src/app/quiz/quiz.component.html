@@ -1,0 +1,64 @@
+<h1>{{data.name}}</h1>
+<h4>{{data.description}}</h4>
+
+
+
+<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+    <button type="button" (click)="chagemode('quiz')" class="btn btn-danger">Quiz</button>
+    <button type="button" (click)="chagemode('review')" class="btn btn-warning">Review</button>
+    <button type="button" (click)="chagemode('submit')" class="btn btn-success">Submit</button>
+</div>
+<div *ngIf="mode=='quiz'">
+    <div *ngFor="let q of data.questions; index as i" >
+        
+
+        <div  *ngIf="i==page" class="question">
+            <p>
+            <progress max="10" min="1" [value]="i+1"></progress>
+        </p>
+        {{q.name}}
+        <ul>
+            <li *ngFor="let o of q.options" class="resp">
+            <input type="checkbox" [(ngModel)]="o.isSelected"  (change)="select(o)"/> {{o.isSelected}} ---- {{o.name}}
+            </li>
+        </ul>
+        
+        <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item ">
+                <button class="page-link" (click)="prev()" [hidden]="page==0" >Previous</button>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <button class="page-link" (click)="next()" [hidden]="page==9">Next</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="mode=='review'">
+
+    <div *ngFor="let q of data.questions; index as i" >
+        <div   [class]="isquestionselected(q)?'question not-selected':'question selected'">
+        {{q.name}}
+        <ul>
+            <li *ngFor="let o of q.options" class="resp">
+            <input type="checkbox" [(ngModel)]="o.isSelected" [id]="o.id"  />{{x}} --- {{o.name}}
+            </li>
+        </ul>
+        </div>
+    </div>
+
+
+</div>
+
+<div *ngIf="mode=='submit'">
+    mode Submit
+</div>

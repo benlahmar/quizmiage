@@ -1,0 +1,12 @@
+
+<div [class]="isnotanswered()?'question not-answered':'question'">
+    {{q.name}}
+    <div *ngFor="let o of q.options">
+            <app-option [mode]="mode" [r]="o"></app-option>        
+    </div>
+    <span *ngIf="mode=='submit'">
+        {{isCorrect()?'correct response':'incorrect response'}}
+        le reponse est :{{correctoption()}}
+    </span>
+    
+</div>

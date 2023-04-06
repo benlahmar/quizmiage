@@ -1,0 +1,45 @@
+
+<div class="container">
+    <div>
+        <app-config [conf]="qz.config"></app-config>
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <button type="button" (click)="chagemode('quiz')" class="btn btn-danger">Quiz</button>
+        <button *ngIf="qz.config.allowReview==true" type="button" (click)="chagemode('review')" class="btn btn-warning">Review</button>
+        <button type="button" (click)="chagemode('submit')" class="btn btn-success">Submit</button>
+    </div>
+    <div *ngIf="qz.config.showClock==true">
+        Date: {{date}}
+    </div>
+<h1>{{qz.name}}</h1>
+<h4>{{qz.description}}</h4>
+<div *ngIf="mode=='quiz'">
+<div *ngFor="let q of qz.questions; index as i">
+    <div  *ngIf="i==page" class="question">
+    <app-question [mode]="mode" [q]="q"></app-question>
+   
+    </div>
+</div>
+
+<app-pagenation [size]="qz.questions.length" [back]="qz.config.allowBack" (handler)="recuper($event)"></app-pagenation>
+
+</div>
+<div *ngIf="mode=='review'">
+<h2>Review</h2>
+<div *ngFor="let q of qz.questions; index as i">
+    <div  >
+    <app-question [mode]="mode" [q]="q"></app-question>
+   
+    </div>
+</div>
+
+</div>
+<div *ngIf="mode=='submit'">
+    <p>Votre score est :{{score()}} %</p>
+    <div *ngFor="let q of qz.questions; index as i">
+        <div  >
+        <app-question [mode]="mode" [q]="q"></app-question>
+       
+        </div>
+</div>
+</div>
